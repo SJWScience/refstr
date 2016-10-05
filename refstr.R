@@ -12,7 +12,7 @@ names(reference) <- 1:length(reference)
 length_reference <- nchar(vcf_cols$REF)
 length_alternate <- nchar(vcf_cols$ALT)
 #account for missing points as "."
-#length_reference[grep("[.]", vcf_cols$REF)] <- 0
+length_reference[grep("[.]", vcf_cols$REF)] <- 0
 length_alternate[grep("[.]", vcf_cols$ALT)] <- 0
 
 #initialise new sequence
@@ -21,7 +21,7 @@ new_sequence <- reference
 for(ii in 1:nrow(vcf_cols)){
   new_sequence[vcf_cols$POS[ii]] <- vcf_cols$ALT[ii]
   if(length_reference[ii]>1) new_sequence[(vcf_cols$POS[ii]+1):(vcf_cols$POS[ii]+length_reference[ii]-1)] <- NA
-  print(paste(paste(reference[vcf_cols$POS[ii]:(vcf_cols$POS[ii]+length_reference[ii]-1)], collapse=""), "substituted for", vcf_cols$ALT[ii]))
+  print(paste(paste(reference[vcf_cols$POS[ii]:(vcf_cols$POS[ii]+length_reference[ii])], collapse=""), "substituted for", vcf_cols$ALT[ii]))
 }
 
 #test output
