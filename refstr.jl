@@ -2,7 +2,8 @@
 
 #load input data
 reference = readline(open(ARGS[7]))
-#Pkg.add("DataFrames")
+using Pkg
+Pkg.add("DataFrames")
 using DataFrames
 vcf_cols = readtable(open(ARGS[6]), separator='\t')
 vcf_cols = sort(vcf_cols)

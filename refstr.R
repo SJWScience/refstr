@@ -21,7 +21,7 @@ new_sequence <- reference
 for(ii in 1:nrow(vcf_cols)){
   new_sequence[vcf_cols$POS[ii]] <- vcf_cols$ALT[ii]
   if(length_reference[ii]>1) new_sequence[(vcf_cols$POS[ii]+1):(vcf_cols$POS[ii]+length_reference[ii]-1)] <- NA
-  print(paste(paste(reference[vcf_cols$POS[ii]:(vcf_cols$POS[ii]+length_reference[ii])], collapse=""), "substituted for", vcf_cols$ALT[ii]))
+  print(paste(paste(reference[vcf_cols$POS[ii]:(vcf_cols$POS[ii]+length_reference[ii]-1)], collapse=""), "substituted for", vcf_cols$ALT[ii]))
 }
 
 #test output
@@ -85,5 +85,5 @@ new_gtf$V5 <- new_positions[gtf$V5]
 #output gtf file
 #write.table(new_gtf, file = paste0(args[4], ".gtf"), header=F, quotes=F)
 #Actually output a gtf file - should work
-write.table(new_gtf, file = paste(args[4], ".gtf"), col.names = F, row.names = F, sep="\t", quote = F)
+write.table(new_gtf, file = paste0(args[4], ".gtf"), col.names = F, row.names = F, sep="\t", quote = F)
 

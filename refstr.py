@@ -39,7 +39,7 @@ for ii in range(len(vcf_cols.index)):
         new_sequence[vcf_cols.loc[ii,'POS']:(vcf_cols.loc[ii,'POS']+length_reference[ii]-1)] = "NA"
     elif length_reference[ii] > 1:
         new_sequence[vcf_cols.loc[ii,'POS']] = "NA"
-    print vcf_cols.loc[ii,'REF'],"substituted for",vcf_cols.loc[ii,'ALT']
+    print(vcf_cols.loc[ii,'REF'],"substituted for",vcf_cols.loc[ii,'ALT'])
 
 #test output
 #new_sequence

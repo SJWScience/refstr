@@ -1,5 +1,5 @@
 #! \bin\bash
-# args: input_vcf($1) ref_seq($2) ref_gtf($3) output_name($4) new_fasta_header($5) cores($6))
+# args: input_vcf($1) ref_seq($2) ref_gtf($3) output_name($4) new_fasta_header($5) cores($6)) line_length
 
 #echo $1 input
 #echo $2 reference
@@ -24,10 +24,11 @@ sed -n -E -e '/#CHROM/,$ p' $1 | sed '1 d' >> $input_tsv
 sed -i 's/#//g' $input_tsv
 
 #Rscript refstr.R "${@:1:5}" $input_tsv $reference_string ${6:-1} #initialise R script and pass pass arguments
-#python refstr.py "${@:1:5}" $input_tsv $reference_string ${6:-1} #initialise R script and pass pass arguments
-./refstr.jl "${@:1:5}" $input_tsv $reference_string ${6:-1} #initialise R script and pass pass arguments
+python3 refstr.py "${@:1:5}" $input_tsv $reference_string ${6:-1} #initialise R script and pass pass arguments
+#./refstr.jl "${@:1:5}" $input_tsv $reference_string ${6:-1} #initialise R script and pass pass arguments
 
 #cut fasta to rows of 60 chars
-fold -w 60 -s ${4}_string.txt > ${4}.fasta
+echo file length $7
+fold -w $7 -s ${4}.fasta_string.txt > ${4}.fasta
 #add header
 sed -i "1s/^/\>${5}\n/" ${4}.fasta
